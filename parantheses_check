@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool isBal(string s) {
+    stack<char> st;
+    for (char a : s) {
+        if (a == '(' || a == '{' || a == '[') {
+            st.push(a);
+        }
+        else if (a == ')' || a == '}' || a == ']') {
+            //no opening bracket
+            if (st.empty()) return false;
+            char top = st.top();
+            if ((a == ')' && top != '(') ||
+                (a == '}' && top != '{') ||
+                (a == ']' && top != '[')) {
+                return false;
+            }
+            st.pop();
+        }
+    }
+    //balanced for empty stack
+    return st.empty();
+}
+
+int main() {
+    string s;
+    cin >> s;
+    cout << (isBal(s) ? "true" : "false");
+}
