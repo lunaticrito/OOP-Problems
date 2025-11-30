@@ -1,0 +1,50 @@
+// Problem: Codeforces 1399A - Remove Smallest
+// --------------------------------------------
+// given an array of integers.
+// In one operation, you can remove any element if the absolute difference 
+// between it and the smallest remaining element is <= 1.
+// Determine if it is possible to remove all elements from the array.
+// Output "YES" if possible, otherwise "NO".
+
+// solving using unordered multiset
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int t;
+    cin >> t;
+    while (t--)
+    {
+        int n;
+        cin >> n;
+
+        unordered_multiset<int> a;
+        for (int i = 0, x; i < n; i++)
+        {
+            cin >> x;
+            a.insert(x);
+        }
+
+        vector<int> v;
+        v.reserve(a.size());
+        for (int x : a)
+        {
+            v.push_back(x);
+        }
+        sort(v.begin(), v.end());
+
+        bool ok = true;
+        for (int i = 0; i < (int)v.size(); i++)
+        {
+            if (v[i] - v[i - 1] > 1)
+            {
+                ok = false;
+                break;
+            }
+        }
+        cout << (ok ? "yes\n" : "no\n");
+    }
+    return 0;
+}
